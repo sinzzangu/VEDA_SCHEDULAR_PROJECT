@@ -8,9 +8,14 @@ qt_standard_project_setup()
 qt_add_executable(Schedular_Project
     WIN32 MACOSX_BUNDLE
     main.cpp
-    widget.cpp
-    widget.h
-    widget.ui
+
+    main_page.h main_page.cpp main_page.ui
+    main_page.h main_page.cpp main_page.ui
+    schedule.h schedule.cpp
+    project.h project.cpp
+    schedule_bar.h schedule_bar.cpp
+    date_header.h date_header.cpp
+
 )
 
 target_link_libraries(Schedular_Project

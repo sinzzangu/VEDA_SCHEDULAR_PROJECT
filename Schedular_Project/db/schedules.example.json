@@ -1,1 +1,42 @@
-[]
+{
+  "projects": [
+    {
+      "id": "proj_001",
+      "name": "프로젝트test 1",
+      "schedules": [
+        {
+          "id": "sch_001",
+          "title": "프로젝트 기획서",
+          "description": "초안 작성 및 피드백 반영",
+          "startDate": "2026-04-20",
+          "endDate": "2026-04-23",
+          "category": "work",
+          "progress": 60
+        },
+        {
+          "id": "sch_002",
+          "title": "알고리즘 과제",
+          "description": "자료구조 과제 제출",
+          "startDate": "2026-04-21",
+          "endDate": "2026-04-24",
+          "category": "study",
+          "progress": 30
+        },
+        {
+          "id": "sch_003",
+          "title": "팀 미팅",
+          "description": "주간 회의",
+          "startDate": "2026-04-22",
+          "endDate": "2026-04-22",
+          "category": "work",
+          "progress": 0
+        }
+      ]
+    },
+    {
+      "id": "proj_002",
+      "name": "프로젝트test 2",
+      "schedules": []
+    }
+  ]
+}
