@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.19)
 project(Schedular_Project LANGUAGES CXX)
 
+set(CMAKE_AUTOUIC ON) #자동생성 되지않아 수동 추가함
+set(CMAKE_AUTOMOC ON) #자동생성 되지않아 수동 추가함
+set(CMAKE_AUTORCC ON) #자동생성 되지않아 수동 추가함
+
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
 qt_standard_project_setup()
@@ -8,9 +12,15 @@ qt_standard_project_setup()
 qt_add_executable(Schedular_Project
     WIN32 MACOSX_BUNDLE
     main.cpp
-    widget.cpp
-    widget.h
-    widget.ui
+    login_page.cpp
+    login_page.h
+    login_page.ui
+    resources/resources.qrc
+    login_register.h login_register.cpp login_register.ui
+    login_register_mismatch.h login_register_mismatch.cpp login_register_mismatch.ui
+    login_register_success.h login_register_success.cpp login_register_success.ui
+
+
 )
 
 target_link_libraries(Schedular_Project

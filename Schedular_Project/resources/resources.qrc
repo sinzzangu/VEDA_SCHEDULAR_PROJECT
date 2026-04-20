@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>login_scheduler_image.png</file>
+        <file>login_scheduler_image_removebg.png</file>
+    </qresource>
+</RCC>
