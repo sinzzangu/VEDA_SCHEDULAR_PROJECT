@@ -35,5 +35,5 @@ Makefile*
 Thumbs.db
 
 # Project data (중요!)
-users.json
-schedules.json
+db/users.json
+db/schedules.json
