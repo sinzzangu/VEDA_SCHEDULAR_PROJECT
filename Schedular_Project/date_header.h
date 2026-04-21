@@ -6,6 +6,7 @@
  * Created By 방준한
  * Version 2.0
  * 프로젝트 이름 받아서 왼쪽 상단에 배치
+ * date header 년, 월, 추가하기
  ***********************
  */
 #ifndef DATE_HEADER_H
@@ -26,9 +27,12 @@ public:
                 int view_days,
                 QWidget *parent = nullptr);
 
-    void set_project_name(QString &name);
+
 
 private:
+    void build_year_row(QHBoxLayout *layout);
+    void build_month_row(QHBoxLayout *layout);
+    void build_day_row(QHBoxLayout *layout);
     void build_cells();
 
     QString s_project_name;

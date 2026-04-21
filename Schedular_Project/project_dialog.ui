@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Project_Dialog</class>
+ <widget class="QDialog" name="Project_Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>프로젝트 관리</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+    background-color: #FAFBFC;
+}
+
+QLineEdit {
+    background-color: white;
+    border: 1px solid #D5D8DC;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    color: #2C2F33;
+    min-height: 20px;
+}
+
+QLineEdit:focus {
+    border-color: #2E4A6B;
+}
+
+QPushButton {
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 20px;
+}
+
+QPushButton#add_button {
+    background-color: #2E4A6B;
+    color: white;
+    border: none;
+    min-width: 60px;
+}
+
+QPushButton#add_button:hover {
+    background-color: #3A5A7D;
+}
+
+QPushButton#close_button {
+    background-color: white;
+    color: #5F6469;
+    border: 1px solid #D5D8DC;
+    min-width: 70px;
+}
+
+QPushButton#close_button:hover {
+    background-color: #F5F7FA;
+}
+
+QPushButton#row_delete_button {
+    background-color: white;
+    color: #E24B4A;
+    border: 1px solid #E24B4A;
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    min-width: 40px;
+    min-height: 16px;
+}
+
+QPushButton#row_delete_button:hover {
+    background-color: #FFF5F5;
+}
+
+QListWidget {
+    background-color: white;
+    border: 1px solid #E5E8EB;
+    border-radius: 4px;
+    padding: 4px;
+    outline: none;
+}
+
+QListWidget::item {
+    border-bottom: 1px solid #F0F2F5;
+    padding: 0px;
+}
+
+QListWidget::item:last-child {
+    border-bottom: none;
+}
+
+QListWidget::item:selected {
+    background-color: transparent;
+    color: #2C2F33;
+}
+
+QLabel {
+    color: #2C2F33;
+    font-size: 12px;
+}
+
+QLabel#field_label {
+    color: #8A8F95;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+QLabel#section_label {
+    color: #8A8F95;
+    font-size: 11px;
+    font-weight: 500;
+    padding-top: 6px;
+}
+
+QLabel#dialog_title_label {
+    color: #2E4A6B;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 0;
+}
+
+QLabel#row_name_label {
+    color: #2C2F33;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+QLabel#row_count_label {
+    color: #8A8F95;
+    font-size: 11px;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="main_layout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>24</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>24</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="dialog_title_label">
+     <property name="text">
+      <string>프로젝트 관리</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>새 프로젝트 추가</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="add_row_layout">
+     <property name="spacing">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QLineEdit" name="project_name_edit">
+       <property name="placeholderText">
+        <string>프로젝트 이름 입력...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="add_button">
+       <property name="text">
+        <string>+ 추가</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="section_label">
+     <property name="text">
+      <string>기존 프로젝트</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="project_list_widget"/>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="button_layout">
+     <item>
+      <spacer name="button_spacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="close_button">
+       <property name="text">
+        <string>닫기</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

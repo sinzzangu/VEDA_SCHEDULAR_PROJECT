@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Schedule_Dialog</class>
+ <widget class="QDialog" name="Schedule_Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>480</width>
+    <height>581</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>일정 상세</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QDialog {
+    background-color: #FAFBFC;
+}
+
+QLineEdit, QTextEdit, QDateEdit, QComboBox {
+    background-color: white;
+    border: 1px solid #D5D8DC;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 12px;
+    color: #2C2F33;
+    min-height: 20px;
+}
+
+QLineEdit:focus, QTextEdit:focus, QDateEdit:focus, QComboBox:focus {
+    border-color: #2E4A6B;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+
+QProgressBar {
+    border: 1px solid #E5E8EB;
+    border-radius: 4px;
+    background-color: #F5F7FA;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 500;
+    color: #2C2F33;
+    min-height: 22px;
+}
+
+QProgressBar::chunk {
+    background-color: #5B8DD6;
+    border-radius: 3px;
+}
+
+QPushButton {
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: 500;
+    min-width: 70px;
+    min-height: 20px;
+}
+
+QPushButton#save_button {
+    background-color: #2E4A6B;
+    color: white;
+    border: none;
+}
+
+QPushButton#save_button:hover {
+    background-color: #3A5A7D;
+}
+
+QPushButton#cancel_button {
+    background-color: white;
+    color: #5F6469;
+    border: 1px solid #D5D8DC;
+}
+
+QPushButton#cancel_button:hover {
+    background-color: #F5F7FA;
+}
+
+QPushButton#delete_button {
+    background-color: white;
+    color: #E24B4A;
+    border: 1px solid #E24B4A;
+}
+
+QPushButton#delete_button:hover {
+    background-color: #FFF5F5;
+}
+
+QLabel {
+    color: #2C2F33;
+    font-size: 12px;
+}
+
+QLabel#field_label {
+    color: #8A8F95;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+QLabel#dialog_title_label {
+    color: #2E4A6B;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 0;
+}
+</string>
+  </property>
+  <layout class="QVBoxLayout" name="main_layout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>24</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>24</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="dialog_title_label">
+     <property name="text">
+      <string>일정 상세</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>프로젝트</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QGridLayout" name="gridLayout"/>
+   </item>
+   <item>
+    <widget class="QComboBox" name="project_combobox"/>
+   </item>
+   <item>
+    <spacer name="spacer_1">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Fixed</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>4</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>제목</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLineEdit" name="title_edit"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>설명</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTextEdit" name="description_edit">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>34</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>180</height>
+      </size>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="date_layout">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="start_date_layout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="field_label">
+         <property name="text">
+          <string>시작일</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="start_date_edit">
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="end_date_layout">
+       <property name="spacing">
+        <number>4</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="field_label">
+         <property name="text">
+          <string>종료일</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDateEdit" name="end_date_edit">
+         <property name="displayFormat">
+          <string>yyyy-MM-dd</string>
+         </property>
+         <property name="calendarPopup">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>카테고리</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QComboBox" name="category_combobox">
+     <item>
+      <property name="text">
+       <string>work</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>study</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>personal</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="field_label">
+     <property name="text">
+      <string>진행률 (오늘 기준 자동 계산)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QProgressBar" name="progress_bar">
+     <property name="value">
+      <number>0</number>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="bottom_spacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="button_layout">
+     <property name="spacing">
+      <number>8</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="delete_button">
+       <property name="text">
+        <string>삭제</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="button_spacer">
+       <property name="orientation">
+        <enum>Qt::Orientation::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Policy::Expanding</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="cancel_button">
+       <property name="text">
+        <string>취소</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="save_button">
+       <property name="text">
+        <string>저장</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

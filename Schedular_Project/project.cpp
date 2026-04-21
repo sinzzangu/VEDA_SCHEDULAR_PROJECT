@@ -53,3 +53,14 @@ void Project::remove_schedule_by_id(QString &schedule_id){
         }
     }
 }
+
+void Project::replace_schedule_by_id(QString &schedule_id, Schedule &new_schedule)
+{
+    // id로 스케줄 찾고, 있으면 새 스케줄로 교체
+    for (int i = 0; i < project_schedules.size(); i++) {
+        if (project_schedules[i].get_id() == schedule_id) {
+            project_schedules[i] = new_schedule;
+            return;   // 찾았으니 끝
+        }
+    }
+}

@@ -21,7 +21,7 @@ Date_Header::Date_Header(QString &project_name,
     s_view_start(view_start),
     s_view_days(view_days)
 {
-    setFixedHeight(44);
+    setFixedHeight(72);
 
     s_layout = new QHBoxLayout(this);
     s_layout->setContentsMargins(0, 0, 0, 0);
@@ -33,30 +33,147 @@ Date_Header::Date_Header(QString &project_name,
 void Date_Header::build_cells()
 {
     // 1. 왼쪽 프로젝트 이름 라벨
-    s_project_label = new QLabel(s_project_name, this);   // ⭐ 텍스트 = 프로젝트명
+    s_project_label = new QLabel(s_project_name, this);
     s_project_label->setFixedWidth(200);
     s_project_label->setAlignment(Qt::AlignCenter);
     s_project_label->setStyleSheet(
         "background-color: white; "
         "font-size: 13px; "
         "font-weight: 500; "
-        "color: #2E4A6B; "                        // ⭐ 사이드바와 같은 네이비
+        "color: #2E4A6B; "
         "border-right: 1px solid #E5E8EB; "
         "border-bottom: 1px solid #E5E8EB;"
         );
     s_layout->addWidget(s_project_label);
 
-    // 2. 각 날짜마다 셀 (기존과 동일)
+    // 2. 오른쪽 날짜 영역 (QVBoxLayout으로 3줄) 맨 위부터 년, 월, 일
+    QWidget *date_area = new QWidget(this);
+    QVBoxLayout *date_vlayout = new QVBoxLayout(date_area);
+    date_vlayout->setContentsMargins(0, 0, 0, 0);
+    date_vlayout->setSpacing(0);
+
+    // 2-1. 년도 행 (QHBoxLayout)
+    QHBoxLayout *year_layout = new QHBoxLayout();
+    year_layout->setContentsMargins(0, 0, 0, 0);
+    year_layout->setSpacing(0);
+    build_year_row(year_layout);
+    date_vlayout->addLayout(year_layout);
+
+    // 2-2. 월 행
+    QHBoxLayout *month_layout = new QHBoxLayout();
+    month_layout->setContentsMargins(0, 0, 0, 0);
+    month_layout->setSpacing(0);
+    build_month_row(month_layout);
+    date_vlayout->addLayout(month_layout);
+
+    // 2-3. 일 행
+    QHBoxLayout *day_layout = new QHBoxLayout();
+    day_layout->setContentsMargins(0, 0, 0, 0);
+    day_layout->setSpacing(0);
+    build_day_row(day_layout);
+    date_vlayout->addLayout(day_layout);
+
+    s_layout->addWidget(date_area);
+}
+
+void Date_Header::build_year_row(QHBoxLayout *layout)
+{
+    // 년도별로 표시
+    // 날짜 계산해서, 년도가 2개면 두개 표시
+    // ex) 2026년 30일 + 2027년 5일 → 두 개의 라벨
+
+    int start_idx = 0;
+    int current_year = s_view_start.year();
+
+    for (int i = 0; i <= s_view_days; i++) {
+        // 마지막이거나 년도가 바뀌는 시점
+        bool is_last = (i == s_view_days);
+        bool year_changed = false;
+
+        if (!is_last) {
+            QDate d = s_view_start.addDays(i);
+            year_changed = (d.year() != current_year);
+        }
+
+        if (is_last || year_changed) {
+            // start_idx ~ i-1 까지가 같은 년도
+            int span = i - start_idx;   // 몇 일이 같은 년도인지
+
+            QLabel *year_label = new QLabel(QString::number(current_year) + "년", this);
+            year_label->setAlignment(Qt::AlignCenter);
+            year_label->setStyleSheet(
+                "background-color: #FAFBFC; "
+                "font-size: 11px; "
+                "font-weight: 500; "
+                "color: #2C2F33; "
+                "border-right: 1px solid #E5E8EB; "
+                "border-bottom: 1px solid #E5E8EB;"
+                );
+
+            // span 넣어서 stretch 해 주기
+            layout->addWidget(year_label, span);
+
+            if (year_changed) {
+                start_idx = i;
+                current_year = s_view_start.addDays(i).year();
+            }
+        }
+    }
+}
+
+void Date_Header::build_month_row(QHBoxLayout *layout)
+{
+    // 월별로 묶어서 표시
+    int start_idx = 0;
+    int current_month = s_view_start.month();
+
+    for (int i = 0; i <= s_view_days; i++) {
+        bool is_last = (i == s_view_days);
+        bool month_changed = false;
+
+        if (!is_last) {
+            QDate d = s_view_start.addDays(i);
+            month_changed = (d.month() != current_month);
+        }
+
+        if (is_last || month_changed) {
+            int span = i - start_idx;
+
+            QLabel *month_label = new QLabel(QString::number(current_month) + "월", this);
+            month_label->setAlignment(Qt::AlignCenter);
+            month_label->setStyleSheet(
+                "background-color: white; "
+                "font-size: 11px; "
+                "color: #5F6469; "
+                "border-right: 1px solid #E5E8EB; "
+                "border-bottom: 1px solid #E5E8EB;"
+                );
+
+            // 똑같이 span 넣어서 쭉 늘려주기 (stretch)
+            layout->addWidget(month_label, span);
+
+            // 월 바뀌면 초기화
+            if (month_changed) {
+                start_idx = i;
+                current_month = s_view_start.addDays(i).month();
+            }
+        }
+    }
+}
+
+void Date_Header::build_day_row(QHBoxLayout *layout)
+{
+    // 날짜별로 찍어주는 코드
     QDate today = QDate::currentDate();
     QStringList day_names = {"월", "화", "수", "목", "금", "토", "일"};
 
     for (int i = 0; i < s_view_days; i++) {
         QDate current_date = s_view_start.addDays(i);
-
         int day_of_week = current_date.dayOfWeek();
         bool is_weekend = (day_of_week == 6 || day_of_week == 7);
         bool is_today = (current_date == today);
 
+        // 요일 먼저 찍고, 그 아래에 날짜
         QString text = QString("%1\n%2")
                            .arg(day_names[day_of_week - 1])
                            .arg(current_date.day());
@@ -87,15 +204,6 @@ void Date_Header::build_cells()
         }
 
         cell->setStyleSheet(style);
-        s_layout->addWidget(cell);
-    }
-}
-
-// ⭐ 프로젝트 이름 업데이트용 함수 (나중에 콤보박스 연동할 때 쓸 것)
-void Date_Header::set_project_name(QString &name)
-{
-    s_project_name = name;
-    if (s_project_label) {
-        s_project_label->setText(name);
+        layout->addWidget(cell);
     }
 }

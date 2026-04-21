@@ -3,7 +3,8 @@
  * project.h header file
  * project data holder class
  * Created By 방준한
- * Version 1.0
+ * Version 2.0
+ * CRUD 함수들 추가..
  ***********************
  */
 #ifndef PROJECT_H
@@ -32,6 +33,8 @@ public:
     void add_schedule(Schedule &schedule); // 스케쥴 추가
     void remove_schedule_by_id(QString &scheduleId); // 스케쥴 취소
     int get_schedule_count(); // 스케쥴 갯수 리턴
+    void replace_schedule_by_id(QString &schedule_id, Schedule &new_schedule);
+    int find_schdule_by_id(QString &id);
 
 private:
     QString project_id;

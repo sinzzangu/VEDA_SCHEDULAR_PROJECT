@@ -3,6 +3,10 @@ project(Schedular_Project LANGUAGES CXX)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
+set(CMAKE_AUTOUIC_ON)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+
 qt_standard_project_setup()
 
 qt_add_executable(Schedular_Project
@@ -15,6 +19,11 @@ qt_add_executable(Schedular_Project
     project.h project.cpp
     schedule_bar.h schedule_bar.cpp
     date_header.h date_header.cpp
+    schedule_dialog.h schedule_dialog.cpp schedule_dialog.ui
+    project_dialog.h project_dialog.cpp project_dialog.ui
+    resources.qrc
+
+
 
 )
 

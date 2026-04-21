@@ -14,9 +14,9 @@
 #include <QDate>
 #include <QList>
 #include "schedule.h"
-
-class QLabel;
-class QHBoxLayout;
+#include <QHBoxLayout>
+#include <QLabel>
+#include <QMouseEvent>
 
 class Schedule_Bar : public QWidget
 {
@@ -34,9 +34,20 @@ private:
     QDate s_bar_view_start;
     int s_bar_view_days;
 
-    QHBoxLayout *s_bar_layout;
+    QHBoxLayout *s_bar_layout;  //
     QLabel *s_bar_title_label;         // 제목
-    QList<QLabel*> s_bar_date_cells;   // 날짜 셀들
+    // QList<QLabel*> s_bar_date_cells;   // 날짜 셀들
+
+    // 카테고리별 색깔 정하기
+    QString get_category_main_color(QString category);
+    QString get_category_border_color(QString category);
+
+
+signals:
+    void schedule_clicked(Schedule schedule);
+
+protected:
+    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif
