@@ -2,8 +2,9 @@
 #define LOGIN_REGISTER_H
 
 #include <QDialog>
-#include <QJsonDocument>
 #include <QFile>
+#include <QDateTime>
+#include <QJsonObject>
 
 namespace Ui {
 class login_register;
@@ -17,20 +18,24 @@ public:
     explicit login_register(QWidget *parent = nullptr);
     ~login_register();
 
+    QJsonObject getAlluserData() {return allUserData;}
+    void setAlluserData(QJsonObject obj_allUserData) {allUserData=obj_allUserData;}
+    QString change_pwHesh(const QString &password);
 
 private slots:
     void on_pushButton_confirm_clicked();
     void on_pushButton_cancel_clicked();
 
 
+
 private:
     Ui::login_register *ui;
 
-    QString id_fix;
-    QString pw_fix;
+    QJsonObject allUserData;
+    QString password;
 
-    int pw_check_check();
-    void save_user_account(QString id, QString pw);
+
+    void save_user_account();
 };
 
 #endif // LOGIN_REGISTER_H

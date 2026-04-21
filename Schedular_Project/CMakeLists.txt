@@ -17,8 +17,9 @@ qt_add_executable(Schedular_Project
     login_page.ui
     resources/resources.qrc
     login_register.h login_register.cpp login_register.ui
-    login_register_mismatch.h login_register_mismatch.cpp login_register_mismatch.ui
-    login_register_success.h login_register_success.cpp login_register_success.ui
+
+
+    login_error.h login_error.cpp login_error.ui
 
 
 )

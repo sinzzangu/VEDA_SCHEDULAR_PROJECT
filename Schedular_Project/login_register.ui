@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>384</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -31,7 +31,7 @@ background-color: rgb(46, 74, 107);</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_3" stretch="7,3">
       <item>
-       <layout class="QVBoxLayout" name="verticalLayout_top" stretch="2,1,1,1,1,1,1">
+       <layout class="QVBoxLayout" name="verticalLayout_top" stretch="2,0,0,1,1,1,1,1,1">
         <item>
          <widget class="QLabel" name="label_title_register">
           <property name="font">
@@ -49,17 +49,35 @@ background-color: rgb(46, 74, 107);</string>
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="label_username">
+          <property name="styleSheet">
+           <string notr="true">color: rgb(255, 255, 255);</string>
+          </property>
+          <property name="text">
+           <string>사용자 이름</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLineEdit" name="lineEdit_username">
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(255, 255, 255);
+color: rgb(0, 0, 0);</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QLabel" name="label_id">
           <property name="styleSheet">
            <string notr="true">color: rgb(255, 255, 255);</string>
           </property>
           <property name="text">
-           <string>아이디</string>
+           <string>이메일</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_id">
+         <widget class="QLineEdit" name="lineEdit_email">
           <property name="styleSheet">
            <string notr="true">background-color: rgb(255, 255, 255);
 color: rgb(0, 0, 0);</string>

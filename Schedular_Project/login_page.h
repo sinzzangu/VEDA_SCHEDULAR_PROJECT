@@ -4,8 +4,8 @@
 #include "ui_login_page.h"
 #include <QWidget>
 #include <QFrame>
-#include <QPainter>
-#include <QPaintEvent> //test
+#include <QJsonObject>
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class Widget;
@@ -19,17 +19,22 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = nullptr);
     ~Widget() override;
+
 private slots:
-
-
     void on_pushButton_register_clicked();
 
-private:
-
+    void on_pushButton_login_clicked();
+    QJsonObject get_obj_allUserData() {return obj_allUserData;}
 
 private:
     Ui::Widget *ui;
+    QJsonObject obj_allUserData;
 
+    QString id;
+    QString pw;
+
+    void loadData(const QString &data);
+    int login_check();
 };
 
 
