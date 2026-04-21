@@ -26,6 +26,10 @@ private slots:
     void on_pushButton_login_clicked();
     QJsonObject get_obj_allUserData() {return obj_allUserData;}
 
+
+signals:
+    void login_successful();
+
 private:
     Ui::Widget *ui;
     QJsonObject obj_allUserData;

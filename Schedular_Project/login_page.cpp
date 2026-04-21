@@ -84,6 +84,8 @@ void Widget::on_pushButton_login_clicked()
     else if(check_value == 2)
     {
         qDebug() << "메인창과 연동";
+        emit login_successful();
+        this->close();
     }
     return;
 }
