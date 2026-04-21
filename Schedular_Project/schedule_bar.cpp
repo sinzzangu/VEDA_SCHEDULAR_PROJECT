@@ -50,7 +50,7 @@ void Schedule_Bar::build_cells()
         );
     s_bar_layout->addWidget(s_bar_title_label);
 
-    // ⭐ 이 일정의 카테고리 기반 색상 미리 계산
+    // 카테고리 바 색상 가져오기
     QString category = s_bar_schedule.get_category();
     QString main_color = get_category_main_color(category);
     QString border_color = get_category_border_color(category);
@@ -80,7 +80,7 @@ void Schedule_Bar::build_cells()
         }
 
         if (is_in_range) {
-            // ⭐ 하드코딩 제거, 카테고리별 색 사용
+            // 그릴때 카테고리별로 이쁘게 그려주기~
             style = "background-color: " + main_color + "; "
                     + "border-right: 1px solid " + border_color + ";";
         }
@@ -104,10 +104,9 @@ void Schedule_Bar::mousePressEvent(QMouseEvent *event)
 {
     QWidget::mousePressEvent(event);   // 부모 기본 동작 호출
 
-    // 시그널 발생!
+    // 시그널 발생! 오버라이드 한거임.
     emit schedule_clicked(s_bar_schedule);
-
-    qDebug() << "Schedule_Bar 클릭됨:" << s_bar_schedule.get_title();
+    // qDebug() << "Schedule_Bar 클릭됨:" << s_bar_schedule.get_title();
 }
 
 // 색깔 정하기
@@ -126,7 +125,7 @@ QString Schedule_Bar::get_category_main_color(QString category)
     return "#8A8F95";       // 회색
 }
 
-// ⭐ 카테고리별 테두리 색상 반환 (메인보다 살짝 어두움)
+// 카테고리별 테두리 색상 반환
 QString Schedule_Bar::get_category_border_color(QString category)
 {
     if (category == "work") {

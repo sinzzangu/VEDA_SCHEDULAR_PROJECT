@@ -24,6 +24,7 @@ public:
 signals:
     // 새 프로젝트 추가 요청 (main_page에서 처리 후 refresh 호출)
     void project_add_requested(QString name);
+
     // 프로젝트 삭제 요청 (main_page에서 처리 후 refresh 호출)
     void project_delete_requested(QString project_id);
 public slots:

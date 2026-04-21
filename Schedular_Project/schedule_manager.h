@@ -31,7 +31,7 @@ public:
 
     // 스케줄 CRUD
     void add_schedule_to_project(QString &project_name, Schedule &new_schedule);
-    void update_schedule_in_projects(Schedule &updated);
+    void update_schedule_in_projects(Schedule &schedule);
     void delete_schedule_from_projects(QString id);
 
     // 프로젝트 CRUD

@@ -21,7 +21,7 @@ Project_Dialog::Project_Dialog(QList<Project> &projects, QWidget *parent)
     s_projects(projects)
 {
     ui->setupUi(this);
-
+    // 일단 채워
     populate_list();
 
     // 버튼 연결
@@ -37,8 +37,8 @@ Project_Dialog::~Project_Dialog()
 // 전체 목록 다시 그리기
 void Project_Dialog::populate_list()
 {
+    // 기존 리스트 지우고 안에 프로젝트 하나씩 채우기
     ui->project_list_widget->clear();
-
     for (int i = 0; i < s_projects.size(); i++) {
         add_project_row(s_projects[i]);
     }
@@ -76,10 +76,10 @@ void Project_Dialog::add_project_row(Project &project)
     QString project_id = project.get_id();
     delete_button->setProperty("project_id", project_id);
 
-    // connect: 클릭 시 어떤 프로젝트인지 sender로 알아냄
+    // connect 클릭 시 어떤 프로젝트인지 sender로 알아냄
     connect(delete_button, SIGNAL(clicked()), this, SLOT(handle_row_delete_clicked()));
 
-    // 레이아웃에 추가
+    // 레이아웃에 한꺼번에 추가
     row_layout->addWidget(icon_label);
     row_layout->addWidget(name_label);
     row_layout->addStretch();
@@ -162,7 +162,7 @@ void Project_Dialog::handle_row_delete_clicked()
     msg_box.setIcon(QMessageBox::Warning);
 
     QPushButton *yes_button = msg_box.addButton("삭제", QMessageBox::YesRole);
-    QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
+    // QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
 
     msg_box.setStyleSheet(
         "QMessageBox { background-color: white; }"

@@ -34,14 +34,14 @@ private:
     // 데이터 매니저
     Schedule_Manager *schedule_manager;
 
-    // 간트 차트 관련 (Phase 2에서 분리 예정)
+    // 간트 차트 관련 변수들
     QVBoxLayout *timeline_layout;
     QDate view_start_date;
     QDate view_end_date;
     int view_days;
     Date_Header *date_header;
 
-    // 간트 차트 함수들 (Phase 2에서 분리 예정)
+    // 간트 차트 함수들
     void create_combo_box();
     void render_selected_project(Project &project);
     void render_all_projects();
@@ -51,6 +51,7 @@ private:
     void calculate_all_dates();
 
     // Project_Dialog 활성 포인터
+    // 프로젝트 추가시 즉각 업데이트 하기 위해서.
     Project_Dialog *s_active_project_dialog = nullptr;
 
 private slots:
@@ -60,5 +61,6 @@ private slots:
     void handle_add_project_button_clicked();
     void handle_project_add_requested(QString name);
     void handle_project_delete_requested(QString project_id);
+    void on_logout_button_clicked();
 };
 #endif // MAIN_PAGE_H

@@ -1,11 +1,13 @@
 /***********************
  * 04/20 MON
- * date_header].h
+ * date_header.cpp
  * date_header class for timeline
  * 프로젝트마다 헤더(날짜) 기간 잡아서 위에 보여주기.
  * Created By 방준한
- * Version 2.0
+ * Version 4.0
  * 프로젝트 이름 받아서 왼쪽 상단에 배치
+ * 프로젝트마다 헤더(날짜) 기간 잡아서 위에 보여주기.
+ * 프로젝트마다 년, 월, 일 계산해서 레이어 쌓아서 이쁘게 보여주기
  ***********************
  */
 #include "date_header.h"
@@ -21,12 +23,13 @@ Date_Header::Date_Header(QString &project_name,
     s_view_start(view_start),
     s_view_days(view_days)
 {
+    // set widget height
     setFixedHeight(72);
-
     s_layout = new QHBoxLayout(this);
     s_layout->setContentsMargins(0, 0, 0, 0);
     s_layout->setSpacing(0);
 
+    // 매우 중요, 날짜 받아와서 이제 칸 나눠서 ㅁ나들어주기.
     build_cells();
 }
 
@@ -56,25 +59,26 @@ void Date_Header::build_cells()
     QHBoxLayout *year_layout = new QHBoxLayout();
     year_layout->setContentsMargins(0, 0, 0, 0);
     year_layout->setSpacing(0);
-    build_year_row(year_layout);
+    build_year_row(year_layout); // 년도 label 만들어서 넣어주기
     date_vlayout->addLayout(year_layout);
 
     // 2-2. 월 행
     QHBoxLayout *month_layout = new QHBoxLayout();
     month_layout->setContentsMargins(0, 0, 0, 0);
     month_layout->setSpacing(0);
-    build_month_row(month_layout);
+    build_month_row(month_layout); // 그 아래에 월 label들 만들어서 넣어주기
     date_vlayout->addLayout(month_layout);
 
     // 2-3. 일 행
     QHBoxLayout *day_layout = new QHBoxLayout();
     day_layout->setContentsMargins(0, 0, 0, 0);
     day_layout->setSpacing(0);
-    build_day_row(day_layout);
+    build_day_row(day_layout); // 마지막에 일 label들 만들어서 넣어주기
     date_vlayout->addLayout(day_layout);
 
     s_layout->addWidget(date_area);
 }
+
 
 void Date_Header::build_year_row(QHBoxLayout *layout)
 {

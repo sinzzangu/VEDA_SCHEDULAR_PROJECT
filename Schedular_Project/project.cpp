@@ -57,6 +57,7 @@ void Project::remove_schedule_by_id(QString &schedule_id){
 void Project::replace_schedule_by_id(QString &schedule_id, Schedule &new_schedule)
 {
     // id로 스케줄 찾고, 있으면 새 스케줄로 교체
+    // 기존이랑 새로운거랑 id는 같으니까 그걸 기반으로 찾아서 수정
     for (int i = 0; i < project_schedules.size(); i++) {
         if (project_schedules[i].get_id() == schedule_id) {
             project_schedules[i] = new_schedule;

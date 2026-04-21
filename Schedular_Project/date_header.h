@@ -1,12 +1,13 @@
 /***********************
  * 04/20 MON
- * date_header].h
+ * date_header.cpp
  * date_header class for timeline
  * 프로젝트마다 헤더(날짜) 기간 잡아서 위에 보여주기.
  * Created By 방준한
- * Version 2.0
+ * Version 4.0
  * 프로젝트 이름 받아서 왼쪽 상단에 배치
- * date header 년, 월, 추가하기
+ * 프로젝트마다 헤더(날짜) 기간 잡아서 위에 보여주기.
+ * 프로젝트마다 년, 월, 일 계산해서 레이어 쌓아서 이쁘게 보여주기
  ***********************
  */
 #ifndef DATE_HEADER_H
@@ -39,7 +40,7 @@ private:
     QLabel *s_project_label;
     QDate s_view_start;
     int s_view_days;
-    QHBoxLayout *s_layout;
+    QHBoxLayout *s_layout; // default box layout (맨 왼쪽에 project_name, 그 옆에 년도 칸)
 };
 
 #endif

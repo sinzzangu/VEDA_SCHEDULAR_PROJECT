@@ -17,6 +17,7 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMouseEvent>
+#include <QMessageBox>
 
 class Schedule_Bar : public QWidget
 {
@@ -34,7 +35,7 @@ private:
     QDate s_bar_view_start;
     int s_bar_view_days;
 
-    QHBoxLayout *s_bar_layout;  //
+    QHBoxLayout *s_bar_layout;  // 기본 레이아웃. label여기에 한나씩 쌓기
     QLabel *s_bar_title_label;         // 제목
     // QList<QLabel*> s_bar_date_cells;   // 날짜 셀들
 
