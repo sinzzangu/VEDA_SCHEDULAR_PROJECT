@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>resources/circle-user.svg</file>
         <file>resources/chart-gantt.svg</file>
+        <file>resources/circle-user.svg</file>
     </qresource>
 </RCC>
-git

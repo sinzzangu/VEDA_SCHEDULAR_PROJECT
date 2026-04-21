@@ -1,12 +1,25 @@
-/***********************
+/***********************************************************************
  * 04/21 MON
  * schedule_dialog.cpp
- * 일정 상세 보기 및 편집 다이얼로그 구현
+ *
+ * [역할]
+ *   스케줄 하나를 보여주고 편집/삭제/신규 생성까지 처리하는 다이얼로그.
+ *   생성자 오버로딩을 통해 "수정 모드"와 "신규 모드"를 한 UI로 겸용함.
+ *
+ * [주요 기능]
+ *   - 수정 모드: 기존 Schedule을 받아 필드에 채우고, 프로젝트 콤보박스는
+ *     잠근 상태로 제공 (프로젝트 이동 방지)
+ *   - 신규 모드: 빈 값 + 오늘/오늘+7일 기본 날짜로 초기화, 프로젝트는
+ *     현재 뷰 기준으로 기본 선택되고 변경 가능, 삭제 버튼은 숨김
+ *   - 시작/종료일 유효성 검사 및 제목 빈값 검사
+ *   - 시작/종료일/오늘 날짜 기반으로 진행률 자동 계산 및 progress_bar 반영
+ *   - 삭제 버튼 → 확인 다이얼로그 후 is_deleted 플래그 세움
+ *   - accept 시 내부의 s_schedule에 최신 값을 반영하여 외부에서 꺼낼 수 있게 함
+ *     (get_updated_schedule, get_selected_project_name)
+ *
  * Created By 방준한
- * Version 3.1
- * 프로젝트 콤보박스 지원 추가
- ***********************
- */
+ * Version 3.1 (수정 모드 + 신규 모드 겸용, 프로젝트 콤보박스 지원)
+ ***********************************************************************/
 #include "schedule_dialog.h"
 #include "ui_schedule_dialog.h"
 #include <QMessageBox>
@@ -20,8 +33,8 @@ Schedule_Dialog::Schedule_Dialog(Schedule &schedule, QList<Project> &projects, Q
 {
     ui->setupUi(this);
 
-    populate_project_combobox();  // ⭐ 콤보박스 먼저 채우기
-    populate_fields();            // ⭐ 그 다음 현재 값 선택
+    populate_project_combobox();  //  콤보박스 먼저 채우기
+    populate_fields();            // 그 다음 현재 값 선택
     update_progress_bar();
 
     // 버튼 연결
@@ -76,7 +89,7 @@ void Schedule_Dialog::populate_project_combobox()
 
 void Schedule_Dialog::populate_fields()
 {
-    // ⭐ 현재 스케줄의 프로젝트 이름을 콤보박스에서 찾아 선택
+    // 현재 스케줄의 프로젝트 이름을 콤보박스에서 찾아 선택
     QString current_project_name = s_schedule.get_schedule_project_name();
     int proj_index = ui->project_combobox->findText(current_project_name);
     if (proj_index >= 0) {
@@ -183,9 +196,6 @@ void Schedule_Dialog::handle_save_clicked()
     }
 
     accept();
-
-
-    accept();   // Accepted 상태로 닫기
 }
 
 void Schedule_Dialog::handle_delete_clicked()
@@ -196,9 +206,9 @@ void Schedule_Dialog::handle_delete_clicked()
                     + s_schedule.get_title() + "\"");
     msg_box.setIcon(QMessageBox::Question);
 
-    // ⭐ 한글 버튼 직접 추가
+    // 버튼 역할
     QPushButton *yes_button = msg_box.addButton("삭제", QMessageBox::YesRole);
-    QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
+    // QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
 
     msg_box.setStyleSheet(
         "QMessageBox { background-color: white; }"

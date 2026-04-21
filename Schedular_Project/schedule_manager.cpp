@@ -1,11 +1,30 @@
-/***********************
+/***********************************************************************
  * 04/21 MON
  * schedule_manager.cpp
- * 스케줄/프로젝트 데이터 관리 + JSON 영속성
+ *
+ * [역할]
+ *   앱의 데이터 계층을 담당하는 매니저 클래스.
+ *   프로젝트와 스케줄 데이터를 메모리에서 소유하며, JSON 파일과의
+ *   영속성(load / save)을 전담함. UI 코드는 이 매니저를 통해서만
+ *   데이터에 접근하여 "단일 출처(Single Source of Truth)" 원칙을 유지.
+ *
+ * [주요 기능]
+ *   - JSON 로딩/저장: load_projects, save_projects_to_json
+ *     (파일 경로는 schedular_json_path 멤버에 저장)
+ *   - projects 리스트 참조/개수 반환 (get_projects, get_project_count)
+ *   - 스케줄 CRUD:
+ *     · add_schedule_to_project: 이름으로 프로젝트를 찾아 스케줄 추가
+ *     · update_schedule_in_projects: id로 찾아 새 스케줄로 교체
+ *     · delete_schedule_from_projects: id로 모든 프로젝트에서 스케줄 제거
+ *   - 프로젝트 CRUD:
+ *     · add_project: 새 프로젝트를 리스트에 추가
+ *     · delete_project_by_id: id로 프로젝트 제거
+ *   - id 자동 생성(generate_schedule_id, generate_project_id)
+ *     및 프로젝트 이름 중복 검사(is_project_name_duplicate)
+ *
  * Created By 방준한
  * Version 1.0
- ***********************
- */
+ ***********************************************************************/
 #include "schedule_manager.h"
 #include <QFile>
 #include <QJsonDocument>

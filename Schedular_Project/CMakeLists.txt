@@ -23,6 +23,7 @@ qt_add_executable(Schedular_Project
     project_dialog.h project_dialog.cpp project_dialog.ui
     resources.qrc
     schedule_manager.h schedule_manager.cpp
+    resources.qrc
 
 
 
