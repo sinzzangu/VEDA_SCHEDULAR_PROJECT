@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>login_register_success</class>
+ <widget class="QDialog" name="login_register_success">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>80</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>회원가입 완료</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(43, 43, 41);
+color: rgb(255, 255, 255);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label_title">
+       <property name="text">
+        <string>회원가입 완료</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout" stretch="2,1">
+     <item>
+      <widget class="QLabel" name="label_content">
+       <property name="text">
+        <string>회원가입이 완료되었습니다.</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="mismatch_confirm">
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(46, 74, 107);</string>
+       </property>
+       <property name="text">
+        <string>확인</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
