@@ -263,7 +263,6 @@ void Schedule_Manager::set_current_user(const QString &username)
     schedular_json_path
         = QCoreApplication::applicationDirPath() + QString("/schedules_%1.json").arg(username);
     s_projects.clear();
-    s_projects.clear();
 
     QFile file(schedular_json_path);
     // 신규 유저면 default 스케쥴 만들어주기

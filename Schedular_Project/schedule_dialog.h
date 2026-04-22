@@ -8,15 +8,6 @@
  * 으헝헝 프로젝트 콤보박스로 변경............ 근데 선택은 불가능하게...?
  ***********************
  */
-/***********************
- * 04/20 MON
- * schedule_dialog.h
- * 일정 상세 보기 및 편집 다이얼로그
- * Created By 방준한
- * Version 3.1
- * 프로젝트 콤보박스 지원 추가
- ***********************
- */
 #ifndef SCHEDULE_DIALOG_H
 #define SCHEDULE_DIALOG_H
 #include <QDialog>
