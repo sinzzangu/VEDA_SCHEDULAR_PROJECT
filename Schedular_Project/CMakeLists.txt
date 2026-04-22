@@ -4,7 +4,6 @@ project(Schedular_Project LANGUAGES CXX)
 find_package(Qt6 6.5 REQUIRED COMPONENTS Core Widgets)
 
 set(CMAKE_AUTOUIC_ON)
-set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 qt_standard_project_setup()
