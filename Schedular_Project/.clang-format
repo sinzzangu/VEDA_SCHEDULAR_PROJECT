@@ -1,0 +1,16 @@
+# Qt 공식 스타일 기반 — Allman 중괄호
+BasedOnStyle: WebKit
+BreakBeforeBraces: Allman
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+AccessModifierOffset: -4
+AlignAfterOpenBracket: Align
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: false
+NamespaceIndentation: None
+PointerAlignment: Right
+SpaceBeforeParens: ControlStatements
+Standard: Cpp11
