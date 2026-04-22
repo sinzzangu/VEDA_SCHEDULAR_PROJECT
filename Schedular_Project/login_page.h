@@ -28,7 +28,8 @@ private slots:
 
 
 signals:
-    void login_successful();
+    // 로그인시 유저내네임 보내주기
+    void login_successful(const QString &username);
 
 private:
     Ui::Widget *ui;

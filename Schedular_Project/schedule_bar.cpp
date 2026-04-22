@@ -122,13 +122,13 @@ void Schedule_Bar::mousePressEvent(QMouseEvent *event)
 // 색깔 정하기
 QString Schedule_Bar::get_category_main_color(QString category)
 {
-    if (category == "work") {
+    if (category == "업무") {
         return "#5B8DD6";   // 블루
     }
-    if (category == "study") {
+    if (category == "공부") {
         return "#6BB89A";   // 틸
     }
-    if (category == "personal") {
+    if (category == "개인") {
         return "#D69A6B";   // 코랄
     }
     // fallback (event, 기타)

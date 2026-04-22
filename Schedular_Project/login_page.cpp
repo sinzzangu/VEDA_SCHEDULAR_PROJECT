@@ -6,6 +6,7 @@
 #include <QFrame>
 #include <QPainter>
 #include <QJsonObject>
+#include "schedule_manager.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -84,7 +85,7 @@ void Widget::on_pushButton_login_clicked()
     else if(check_value == 2)
     {
         qDebug() << "메인창과 연동";
-        emit login_successful();
+        emit login_successful(id);
         this->close();
     }
     return;
