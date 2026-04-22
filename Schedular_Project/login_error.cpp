@@ -13,7 +13,7 @@ login_error::~login_error()
     delete ui;
 }
 //알림창 텍스트변경
-void login_error::login_dialog_changeText(int check_value)
+void login_error::login_dialog_change_text(int check_value)
 {
     if(check_value ==0)
     {

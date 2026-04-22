@@ -15,7 +15,6 @@ public:
 
 public slots:
     void handle_login_successful();
-    void handle_logout_requested();  // 추가
 
 private:
     main_page *app_main_page;
