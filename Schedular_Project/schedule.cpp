@@ -12,7 +12,6 @@
  *     project_name에 대한 getter / setter 제공
  *   - 모든 필드에 대한 초기값을 받는 생성자와 기본 생성자 지원
  *   - Qt의 시그널을 통해 객체가 전달될 수 있도록 복사 가능한 형태로 설계
- *     (main.cpp의 qRegisterMetaType<Schedule> 등록과 짝을 이룸)
  *
  * Created By 방준한
  * Version 2.0 (소속 프로젝트 이름 필드 추가)
