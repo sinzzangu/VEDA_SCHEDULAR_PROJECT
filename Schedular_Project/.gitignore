@@ -34,6 +34,10 @@ Makefile*
 .DS_Store
 Thumbs.db
 
-# Project data (중요!)
-db/users.json
-db/schedules.json
+# Project data — 실행 시 생성되는 유저 데이터 (커밋 금지)
+users.json
+user_data.json
+schedules_*.json
+
+db/*
+!db/*.example.json
