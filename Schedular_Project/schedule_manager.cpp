@@ -26,13 +26,13 @@
  * Version 1.0
  ***********************************************************************/
 #include "schedule_manager.h"
-#include <QFile>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
-#include <QJsonValue>
 #include <QDateTime>
 #include <QDebug>
+#include <QFile>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 
 Schedule_Manager::Schedule_Manager(QObject *parent)
     : QObject(parent)
@@ -45,7 +45,8 @@ void Schedule_Manager::load_projects()
     // 바꿔야함
     QFile file(schedular_json_path);
 
-    if (!file.open(QIODevice::ReadOnly)) {
+    if (!file.open(QIODevice::ReadOnly))
+    {
         qDebug() << "Failed to open file" << file.errorString();
         return;
     }
@@ -55,14 +56,16 @@ void Schedule_Manager::load_projects()
 
     QJsonDocument doc = QJsonDocument::fromJson(raw_data);
 
-    if (doc.isNull()) {
+    if (doc.isNull())
+    {
         qWarning() << "JSON 파싱 실패:";
         return;
     }
 
     int projects_count = doc["projects"].toArray().size();
 
-    for (int i = 0; i < projects_count; i++) {
+    for (int i = 0; i < projects_count; i++)
+    {
         QString project_id = doc["projects"][i]["id"].toString();
         QString project_name = doc["projects"][i]["name"].toString();
 
@@ -70,18 +73,15 @@ void Schedule_Manager::load_projects()
 
         int schedule_count = doc["projects"][i]["schedules"].toArray().size();
 
-        for (int j = 0; j < schedule_count; j++) {
+        for (int j = 0; j < schedule_count; j++)
+        {
             QJsonValue scheduleData = doc["projects"][i]["schedules"][j];
-            Schedule schedule(
-                scheduleData["id"].toString(),
-                scheduleData["title"].toString(),
-                scheduleData["description"].toString(),
-                QDate::fromString(scheduleData["startDate"].toString(), "yyyy-MM-dd"),
-                QDate::fromString(scheduleData["endDate"].toString(), "yyyy-MM-dd"),
-                scheduleData["category"].toString(),
-                scheduleData["progress"].toInt(),
-                project_name
-                );
+            Schedule schedule(scheduleData["id"].toString(), scheduleData["title"].toString(),
+                              scheduleData["description"].toString(),
+                              QDate::fromString(scheduleData["startDate"].toString(), "yyyy-MM-dd"),
+                              QDate::fromString(scheduleData["endDate"].toString(), "yyyy-MM-dd"),
+                              scheduleData["category"].toString(), scheduleData["progress"].toInt(),
+                              project_name);
 
             project.add_schedule(schedule);
         }
@@ -96,7 +96,8 @@ void Schedule_Manager::save_projects_to_json()
     QJsonObject root_object;
     QJsonArray projects_array;
 
-    for (int i = 0; i < s_projects.size(); i++) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
         QJsonObject project_object;
         project_object["id"] = s_projects[i].get_id();
         project_object["name"] = s_projects[i].get_name();
@@ -104,7 +105,8 @@ void Schedule_Manager::save_projects_to_json()
         QJsonArray schedules_array;
         QList<Schedule> schedules = s_projects[i].get_schedules();
 
-        for (int j = 0; j < schedules.size(); j++) {
+        for (int j = 0; j < schedules.size(); j++)
+        {
             QJsonObject schedule_object;
             schedule_object["id"] = schedules[j].get_id();
             schedule_object["title"] = schedules[j].get_title();
@@ -127,7 +129,8 @@ void Schedule_Manager::save_projects_to_json()
 
     QFile file(schedular_json_path);
 
-    if (!file.open(QIODevice::WriteOnly)) {
+    if (!file.open(QIODevice::WriteOnly))
+    {
         qDebug() << "JSON 파일 쓰기 실패:";
         return;
     }
@@ -153,8 +156,10 @@ int Schedule_Manager::get_project_count()
 // 특정 프로젝트에 스케줄 추가
 void Schedule_Manager::add_schedule_to_project(QString &project_name, Schedule &new_schedule)
 {
-    for (int i = 0; i < s_projects.size(); i++) {
-        if (s_projects[i].get_name() == project_name) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
+        if (s_projects[i].get_name() == project_name)
+        {
             s_projects[i].add_schedule(new_schedule);
             qDebug() << "added project: " << project_name
                      << "schedule_title: " << new_schedule.get_title();
@@ -168,10 +173,13 @@ void Schedule_Manager::update_schedule_in_projects(Schedule &schedule)
 {
     QString target_id = schedule.get_id();
     // 기존이랑 새로운거랑 id는 같으니까 그걸 기반으로 찾아서 수정
-    for (int i = 0; i < s_projects.size(); i++) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
         QList<Schedule> schedules = s_projects[i].get_schedules();
-        for (int j = 0; j < schedules.size(); j++) {
-            if (schedules[j].get_id() == target_id) {
+        for (int j = 0; j < schedules.size(); j++)
+        {
+            if (schedules[j].get_id() == target_id)
+            {
                 s_projects[i].replace_schedule_by_id(target_id, schedule);
                 qDebug() << "updated" << s_projects[i].get_name();
                 return;
@@ -182,13 +190,13 @@ void Schedule_Manager::update_schedule_in_projects(Schedule &schedule)
     qDebug() << "cannot find schedule";
 }
 
-
 // id로 스케줄을 projects 리스트에서 삭제
 void Schedule_Manager::delete_schedule_from_projects(QString id)
 {
     // qDebug() << "trying to delete: " << id;
 
-    for (int i = 0; i < s_projects.size(); i++) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
         s_projects[i].remove_schedule_by_id(id);
     }
 
@@ -205,8 +213,10 @@ void Schedule_Manager::add_project(Project &new_project)
 // id로 프로젝트 삭제
 void Schedule_Manager::delete_project_by_id(QString project_id)
 {
-    for (int i = 0; i < s_projects.size(); i++) {
-        if (s_projects[i].get_id() == project_id) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
+        if (s_projects[i].get_id() == project_id)
+        {
             QString deleted_name = s_projects[i].get_name();
             s_projects.removeAt(i);
             qDebug() << "project_deleted: " << deleted_name;
@@ -235,8 +245,10 @@ QString Schedule_Manager::generate_project_id()
 // 프로젝트 이름 중복 체크
 bool Schedule_Manager::is_project_name_duplicate(QString &name)
 {
-    for (int i = 0; i < s_projects.size(); i++) {
-        if (s_projects[i].get_name() == name) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
+        if (s_projects[i].get_name() == name)
+        {
             return true;
         }
     }
@@ -253,12 +265,13 @@ void Schedule_Manager::set_current_user(const QString &username)
 
     QFile file(schedular_json_path);
     // 신규 유저면 default 스케쥴 만들어주기
-    if (!file.exists()) {
+    if (!file.exists())
+    {
         qDebug() << "새 유저 스케줄 파일 생성:" << schedular_json_path;
-        create_default_schedule_file();   // 기본 데이터로 파일 생성
+        create_default_schedule_file(); // 기본 데이터로 파일 생성
     }
 
-    load_projects();   // 프로젝트 로드
+    load_projects(); // 프로젝트 로드
 }
 
 // 기본 스케줄 파일을 템플릿에서 복사해서 생성
@@ -266,10 +279,11 @@ void Schedule_Manager::create_default_schedule_file()
 {
     QFile default_file("default_schedules.json");
 
-    if (!default_file.open(QIODevice::ReadOnly)) {
+    if (!default_file.open(QIODevice::ReadOnly))
+    {
         qWarning() << "default_schedules.json 열기 실패 — 빈 파일로 생성:"
                    << default_file.errorString();
-        save_projects_to_json();   // fallback: 빈 파일
+        save_projects_to_json(); // fallback: 빈 파일
         return;
     }
 
@@ -277,7 +291,8 @@ void Schedule_Manager::create_default_schedule_file()
     default_file.close();
 
     QFile new_file(schedular_json_path);
-    if (!new_file.open(QIODevice::WriteOnly)) {
+    if (!new_file.open(QIODevice::WriteOnly))
+    {
         qWarning() << "새 유저 파일 쓰기 실패:" << new_file.errorString();
         return;
     }
@@ -288,6 +303,7 @@ void Schedule_Manager::create_default_schedule_file()
     qDebug() << "기본 스케줄 데이터로 초기화 완료";
 }
 
-QString Schedule_Manager::get_current_username(){
+QString Schedule_Manager::get_current_username()
+{
     return session_username;
 }

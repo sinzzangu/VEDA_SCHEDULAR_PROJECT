@@ -22,20 +22,20 @@
  ***********************************************************************/
 #include "schedule_dialog.h"
 #include "ui_schedule_dialog.h"
-#include <QMessageBox>
 #include <QDate>
+#include <QMessageBox>
 
 Schedule_Dialog::Schedule_Dialog(Schedule &schedule, QList<Project> &projects, QWidget *parent)
-    : QDialog(parent),
-    ui(new Ui::Schedule_Dialog),
-    s_schedule(schedule),
-    s_projects(projects),
-    s_is_new_mode(false)
+    : QDialog(parent)
+    , ui(new Ui::Schedule_Dialog)
+    , s_schedule(schedule)
+    , s_projects(projects)
+    , s_is_new_mode(false)
 {
     ui->setupUi(this);
 
-    populate_project_combobox();  //  콤보박스 먼저 채우기
-    populate_fields();            // 그 다음 현재 값 선택
+    populate_project_combobox(); //  콤보박스 먼저 채우기
+    populate_fields(); // 그 다음 현재 값 선택
     update_progress_bar();
 
     // 버튼 연결
@@ -51,18 +51,19 @@ Schedule_Dialog::Schedule_Dialog(Schedule &schedule, QList<Project> &projects, Q
 }
 
 // 일정 생성 생성자
-Schedule_Dialog::Schedule_Dialog(QList<Project> &projects, QString &default_project_name, QWidget *parent)
-    : QDialog(parent),
-    ui(new Ui::Schedule_Dialog),
-    s_projects(projects),
-    s_is_new_mode(true)
+Schedule_Dialog::Schedule_Dialog(QList<Project> &projects, QString &default_project_name,
+                                 QWidget *parent)
+    : QDialog(parent)
+    , ui(new Ui::Schedule_Dialog)
+    , s_projects(projects)
+    , s_is_new_mode(true)
 {
     ui->setupUi(this);
 
     // 신규 모드용 UI 조정
     setWindowTitle("새 스케쥴 추가");
     ui->dialog_title_label->setText("새 스케쥴 추가");
-    ui->delete_button->hide();  // 생성 모드에선 삭제 버튼 숨김
+    ui->delete_button->hide(); // 생성 모드에선 삭제 버튼 숨김
 
     populate_project_combobox();
     setup_new_mode_defaults(default_project_name);
@@ -82,7 +83,8 @@ Schedule_Dialog::~Schedule_Dialog()
 // 프로젝트 콤보박스에 프로젝트 이름들 채우기
 void Schedule_Dialog::populate_project_combobox()
 {
-    for (int i = 0; i < s_projects.size(); i++) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
         QString project_name = s_projects[i].get_name();
         ui->project_combobox->addItem(project_name);
     }
@@ -93,7 +95,8 @@ void Schedule_Dialog::populate_fields()
     // 현재 스케줄의 프로젝트 이름을 콤보박스에서 찾아 선택
     QString current_project_name = s_schedule.get_schedule_project_name();
     int proj_index = ui->project_combobox->findText(current_project_name);
-    if (proj_index >= 0) {
+    if (proj_index >= 0)
+    {
         ui->project_combobox->setCurrentIndex(proj_index);
     }
     ui->project_combobox->setEnabled(false);
@@ -104,7 +107,8 @@ void Schedule_Dialog::populate_fields()
     ui->end_date_edit->setDate(s_schedule.get_end_date());
 
     int cat_index = ui->category_combobox->findText(s_schedule.get_category());
-    if (cat_index >= 0) {
+    if (cat_index >= 0)
+    {
         ui->category_combobox->setCurrentIndex(cat_index);
     }
 }
@@ -115,20 +119,24 @@ int Schedule_Dialog::calculate_progress()
     QDate end = ui->end_date_edit->date();
     QDate today = QDate::currentDate();
 
-    if (start > end) {
+    if (start > end)
+    {
         return 0;
     }
-    if (today < start) {
+    if (today < start)
+    {
         return 0;
     }
-    if (today >= end) {
+    if (today >= end)
+    {
         return 100;
     }
 
     int total_days = start.daysTo(end);
     int passed_days = start.daysTo(today);
 
-    if (total_days == 0) {
+    if (total_days == 0)
+    {
         return 100;
     }
 
@@ -151,14 +159,15 @@ void Schedule_Dialog::handle_save_clicked()
     QDate start = ui->start_date_edit->date();
     QDate end = ui->end_date_edit->date();
 
-    if (start > end) {
-        QMessageBox::warning(this, "입력 오류",
-                             "시작일이 종료일보다 늦을 수 없습니다.");
+    if (start > end)
+    {
+        QMessageBox::warning(this, "입력 오류", "시작일이 종료일보다 늦을 수 없습니다.");
         return;
     }
 
     QString new_title = ui->title_edit->text();
-    if (new_title.isEmpty()) {
+    if (new_title.isEmpty())
+    {
         QMessageBox::warning(this, "입력 오류", "제목을 입력해주세요.");
         return;
     }
@@ -168,25 +177,20 @@ void Schedule_Dialog::handle_save_clicked()
     QString new_category = ui->category_combobox->currentText();
     int new_progress = calculate_progress();
 
-    if (s_is_new_mode) {
+    if (s_is_new_mode)
+    {
         // 신규 모드: Schedule 객체 새로 만들어서 s_schedule에 넣기
         // id와 project_name은 main_page에서 채울 수도 있지만,
         // 여기서 project_name은 알 수 있으니 넣어줌 (id는 main_page에서)
         QString selected_project = ui->project_combobox->currentText();
         // 빈 id로 Schedule 생성 → main_page에서 id 채워서 저장
-        Schedule new_schedule(
-            "",  // id는 main_page가 generate_schedule_id()로 채움
-            new_title,
-            new_description,
-            start,
-            end,
-            new_category,
-            new_progress,
-            selected_project
-            );
+        Schedule new_schedule("", // id는 main_page가 generate_schedule_id()로 채움
+                              new_title, new_description, start, end, new_category, new_progress,
+                              selected_project);
         s_schedule = new_schedule;
-
-    } else {
+    }
+    else
+    {
         // 수정 모드: 기존 s_schedule 값 업데이트
         s_schedule.set_title(new_title);
         s_schedule.set_description(new_description);
@@ -203,36 +207,34 @@ void Schedule_Dialog::handle_delete_clicked()
 {
     QMessageBox msg_box(this);
     msg_box.setWindowTitle("일정 삭제");
-    msg_box.setText("정말로 이 일정을 삭제하시겠습니까?\n\""
-                    + s_schedule.get_title() + "\"");
+    msg_box.setText("정말로 이 일정을 삭제하시겠습니까?\n\"" + s_schedule.get_title() + "\"");
     msg_box.setIcon(QMessageBox::Question);
 
     // 버튼 역할
     QPushButton *yes_button = msg_box.addButton("삭제", QMessageBox::YesRole);
     // QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
 
-    msg_box.setStyleSheet(
-        "QMessageBox { background-color: white; }"
-        "QMessageBox QLabel { color: #2C2F33; font-size: 13px; padding: 8px; }"
-        "QPushButton { "
-        "    background-color: white; "
-        "    color: #2C2F33; "
-        "    border: 1px solid #D5D8DC; "
-        "    border-radius: 4px; "
-        "    padding: 6px 16px; "
-        "    min-width: 60px; "
-        "    min-height: 20px; "
-        "    font-size: 12px; "
-        "}"
-        "QPushButton:hover { "
-        "    background-color: #F5F7FA; "
-        "    border-color: #2E4A6B; "
-        "}"
-        );
+    msg_box.setStyleSheet("QMessageBox { background-color: white; }"
+                          "QMessageBox QLabel { color: #2C2F33; font-size: 13px; padding: 8px; }"
+                          "QPushButton { "
+                          "    background-color: white; "
+                          "    color: #2C2F33; "
+                          "    border: 1px solid #D5D8DC; "
+                          "    border-radius: 4px; "
+                          "    padding: 6px 16px; "
+                          "    min-width: 60px; "
+                          "    min-height: 20px; "
+                          "    font-size: 12px; "
+                          "}"
+                          "QPushButton:hover { "
+                          "    background-color: #F5F7FA; "
+                          "    border-color: #2E4A6B; "
+                          "}");
 
     msg_box.exec();
 
-    if (msg_box.clickedButton() == yes_button) {
+    if (msg_box.clickedButton() == yes_button)
+    {
         schedule_was_deleted = true;
         accept();
     }
@@ -254,13 +256,16 @@ void Schedule_Dialog::setup_new_mode_defaults(QString &default_project_name)
 {
     // 프로젝트 콤보박스: 현재 보고 있는 프로젝트로 기본 선택
     int proj_index = ui->project_combobox->findText(default_project_name);
-    if (proj_index >= 0) {
+    if (proj_index >= 0)
+    {
         ui->project_combobox->setCurrentIndex(proj_index);
-    } else {
+    }
+    else
+    {
         // "모든 프로젝트" 상태였거나 매칭 실패 → 첫 번째 프로젝트
         ui->project_combobox->setCurrentIndex(0);
     }
-    ui->project_combobox->setEnabled(true);  // 신규 모드에선 선택 가능
+    ui->project_combobox->setEnabled(true); // 신규 모드에선 선택 가능
 
     ui->title_edit->setText("");
     ui->title_edit->setPlaceholderText("일정 제목을 입력하세요");
@@ -272,7 +277,7 @@ void Schedule_Dialog::setup_new_mode_defaults(QString &default_project_name)
     ui->start_date_edit->setDate(today);
     ui->end_date_edit->setDate(one_week_later);
 
-    ui->category_combobox->setCurrentIndex(0);  // work
+    ui->category_combobox->setCurrentIndex(0); // work
 }
 
 // 생성 모드에서 main_page가 어느 프로젝트에 추가할지 알기 위함
