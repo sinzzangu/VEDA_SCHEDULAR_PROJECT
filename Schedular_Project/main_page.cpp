@@ -24,13 +24,14 @@
 #include <QDateTime>
 #include "schedule_bar.h"
 
-main_page::main_page(QWidget *parent)
-    : QMainWindow(parent)
+main_page::main_page(Schedule_Manager *mgr, QWidget *parent)
+    : schedule_manager(mgr), QMainWindow(parent)
     , ui(new Ui::main_page)
 {
     // 기본 UI setup
     ui->setupUi(this);
     ui->project_combobox->setView(new QListView());
+    ui->user_name_label->setText(schedule_manager->get_current_username());
 
     // 현재 날짜 출력
     QDateTime stCurrentDateTime = QDateTime::currentDateTime();
@@ -43,9 +44,12 @@ main_page::main_page(QWidget *parent)
     timeline_layout->setAlignment(Qt::AlignTop);
 
     // 스케쥴 매니저로 백엔드 느낌으로 모든 데이터 처리.
-    schedule_manager = new Schedule_Manager(this);
+    // 유저에서 만들어준 스케쥴러 가져와서 생성.
+    // schedule_manager = new Schedule_Manager(this);
+
     // 데이터 읽어오기
-    schedule_manager->load_projects();
+    // 로그인 즉시 데이터 읽어오기 때문에 그릴때 읽어올 필요 없음
+    // schedule_manager->load_projects();
 
     // 콤보박스 생성
     create_combo_box();
