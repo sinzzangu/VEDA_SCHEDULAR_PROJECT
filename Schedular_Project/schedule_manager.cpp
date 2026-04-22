@@ -242,3 +242,52 @@ bool Schedule_Manager::is_project_name_duplicate(QString &name)
     }
     return false;
 }
+
+void Schedule_Manager::set_current_user(const QString &username)
+{
+    session_username = username;
+    qDebug() << "[set_current_user] 호출됨 - username:" << username;
+    // schedule_user.json path 만들기. 유저마다.
+    schedular_json_path = QString("schedules_%1.json").arg(username);
+    s_projects.clear();
+
+    QFile file(schedular_json_path);
+    // 신규 유저면 default 스케쥴 만들어주기
+    if (!file.exists()) {
+        qDebug() << "새 유저 스케줄 파일 생성:" << schedular_json_path;
+        create_default_schedule_file();   // 기본 데이터로 파일 생성
+    }
+
+    load_projects();   // 프로젝트 로드
+}
+
+// 기본 스케줄 파일을 템플릿에서 복사해서 생성
+void Schedule_Manager::create_default_schedule_file()
+{
+    QFile default_file("default_schedules.json");
+
+    if (!default_file.open(QIODevice::ReadOnly)) {
+        qWarning() << "default_schedules.json 열기 실패 — 빈 파일로 생성:"
+                   << default_file.errorString();
+        save_projects_to_json();   // fallback: 빈 파일
+        return;
+    }
+
+    QByteArray default_data = default_file.readAll();
+    default_file.close();
+
+    QFile new_file(schedular_json_path);
+    if (!new_file.open(QIODevice::WriteOnly)) {
+        qWarning() << "새 유저 파일 쓰기 실패:" << new_file.errorString();
+        return;
+    }
+
+    new_file.write(default_data);
+    new_file.close();
+
+    qDebug() << "기본 스케줄 데이터로 초기화 완료";
+}
+
+QString Schedule_Manager::get_current_username(){
+    return session_username;
+}
