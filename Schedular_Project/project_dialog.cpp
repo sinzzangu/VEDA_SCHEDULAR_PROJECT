@@ -19,17 +19,17 @@
  ***********************************************************************/
 #include "project_dialog.h"
 #include "ui_project_dialog.h"
-#include <QMessageBox>
-#include <QListWidgetItem>
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QListWidgetItem>
+#include <QMessageBox>
 #include <QPushButton>
 #include <QWidget>
 
 Project_Dialog::Project_Dialog(QList<Project> &projects, QWidget *parent)
-    : QDialog(parent),
-    ui(new Ui::Project_Dialog),
-    s_projects(projects)
+    : QDialog(parent)
+    , ui(new Ui::Project_Dialog)
+    , s_projects(projects)
 {
     ui->setupUi(this);
     // 일단 채워
@@ -50,7 +50,8 @@ void Project_Dialog::populate_list()
 {
     // 기존 리스트 지우고 안에 프로젝트 하나씩 채우기
     ui->project_list_widget->clear();
-    for (int i = 0; i < s_projects.size(); i++) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
         add_project_row(s_projects[i]);
     }
 }
@@ -108,17 +109,19 @@ void Project_Dialog::handle_add_clicked()
 {
     QString name = ui->project_name_edit->text().trimmed();
 
-    if (name.isEmpty()) {
+    if (name.isEmpty())
+    {
         QMessageBox::warning(this, "입력 오류", "프로젝트 이름을 입력해주세요.");
         return;
     }
 
     // 중복 체크 (main_page도 하지만, 여기서도 먼저 체크해서 UX 개선)
-    for (int i = 0; i < s_projects.size(); i++) {
-        if (s_projects[i].get_name() == name) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
+        if (s_projects[i].get_name() == name)
+        {
             QMessageBox::warning(this, "중복 오류",
-                                 "이미 같은 이름의 프로젝트가 있습니다:\n\""
-                                     + name + "\"");
+                                 "이미 같은 이름의 프로젝트가 있습니다:\n\"" + name + "\"");
             return;
         }
     }
@@ -134,8 +137,9 @@ void Project_Dialog::handle_add_clicked()
 void Project_Dialog::handle_row_delete_clicked()
 {
     // 어느 버튼이 눌렸는지 찾기
-    QPushButton *clicked_button = (QPushButton*)sender();
-    if (!clicked_button) return;
+    QPushButton *clicked_button = (QPushButton *)sender();
+    if (!clicked_button)
+        return;
 
     QString target_id = clicked_button->property("project_id").toString();
 
@@ -143,8 +147,10 @@ void Project_Dialog::handle_row_delete_clicked()
     QString target_name;
     int target_count = 0;
     bool found = false;
-    for (int i = 0; i < s_projects.size(); i++) {
-        if (s_projects[i].get_id() == target_id) {
+    for (int i = 0; i < s_projects.size(); i++)
+    {
+        if (s_projects[i].get_id() == target_id)
+        {
             target_name = s_projects[i].get_name();
             target_count = s_projects[i].get_schedule_count();
             found = true;
@@ -152,7 +158,8 @@ void Project_Dialog::handle_row_delete_clicked()
         }
     }
 
-    if (!found) {
+    if (!found)
+    {
         qDebug() << "⚠️ 프로젝트 id를 찾을 수 없음:" << target_id;
         return;
     }
@@ -162,11 +169,14 @@ void Project_Dialog::handle_row_delete_clicked()
     msg_box.setWindowTitle("프로젝트 삭제");
 
     QString message;
-    if (target_count > 0) {
+    if (target_count > 0)
+    {
         message = "\"" + target_name + "\" 프로젝트를 삭제하시겠습니까?\n\n"
-                  + "이 프로젝트의 모든 일정 " + QString::number(target_count)
-                  + "개가 함께 삭제됩니다.\n(이 작업은 되돌릴 수 없습니다)";
-    } else {
+            + "이 프로젝트의 모든 일정 " + QString::number(target_count)
+            + "개가 함께 삭제됩니다.\n(이 작업은 되돌릴 수 없습니다)";
+    }
+    else
+    {
         message = "\"" + target_name + "\" 프로젝트를 삭제하시겠습니까?";
     }
     msg_box.setText(message);
@@ -175,28 +185,27 @@ void Project_Dialog::handle_row_delete_clicked()
     QPushButton *yes_button = msg_box.addButton("삭제", QMessageBox::YesRole);
     // QPushButton *no_button = msg_box.addButton("취소", QMessageBox::NoRole);
 
-    msg_box.setStyleSheet(
-        "QMessageBox { background-color: white; }"
-        "QMessageBox QLabel { color: #2C2F33; font-size: 13px; padding: 8px; }"
-        "QPushButton { "
-        "    background-color: white; "
-        "    color: #2C2F33; "
-        "    border: 1px solid #D5D8DC; "
-        "    border-radius: 4px; "
-        "    padding: 6px 16px; "
-        "    min-width: 60px; "
-        "    min-height: 20px; "
-        "    font-size: 12px; "
-        "}"
-        "QPushButton:hover { "
-        "    background-color: #F5F7FA; "
-        "    border-color: #2E4A6B; "
-        "}"
-        );
+    msg_box.setStyleSheet("QMessageBox { background-color: white; }"
+                          "QMessageBox QLabel { color: #2C2F33; font-size: 13px; padding: 8px; }"
+                          "QPushButton { "
+                          "    background-color: white; "
+                          "    color: #2C2F33; "
+                          "    border: 1px solid #D5D8DC; "
+                          "    border-radius: 4px; "
+                          "    padding: 6px 16px; "
+                          "    min-width: 60px; "
+                          "    min-height: 20px; "
+                          "    font-size: 12px; "
+                          "}"
+                          "QPushButton:hover { "
+                          "    background-color: #F5F7FA; "
+                          "    border-color: #2E4A6B; "
+                          "}");
 
     msg_box.exec();
 
-    if (msg_box.clickedButton() != yes_button) {
+    if (msg_box.clickedButton() != yes_button)
+    {
         return;
     }
 

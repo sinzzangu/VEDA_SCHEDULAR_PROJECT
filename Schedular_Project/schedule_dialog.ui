@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>581</height>
+    <height>595</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -262,17 +262,17 @@ QLabel#dialog_title_label {
     <widget class="QComboBox" name="category_combobox">
      <item>
       <property name="text">
-       <string>work</string>
+       <string>업무</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>study</string>
+       <string>공부</string>
       </property>
      </item>
      <item>
       <property name="text">
-       <string>personal</string>
+       <string>개인</string>
       </property>
      </item>
     </widget>

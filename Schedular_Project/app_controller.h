@@ -2,8 +2,9 @@
 #define APP_CONTROLLER_H
 
 #include <QObject>
+#include <QString>
 #include "main_page.h"
-#include "login_page.h"
+#include "schedule_manager.h"
 
 class App_Controller : public QObject
 {
@@ -11,15 +12,13 @@ class App_Controller : public QObject
 public:
     App_Controller();
     ~App_Controller();
-    void set_login_window(Widget *login);  // 추가
 
 public slots:
-    void handle_login_successful();
-    void handle_logout_requested();  // 추가
+    void handle_login_successful(const QString &username);
 
 private:
     main_page *app_main_page;
-    Widget *login_window;  // 추가
+    Schedule_Manager schedule_manager; // 멤버 변수로 선언
 };
 
 #endif

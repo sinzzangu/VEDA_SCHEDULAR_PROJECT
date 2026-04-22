@@ -45,10 +45,19 @@ public:
     // 유틸
     bool is_project_name_duplicate(QString &name);
 
+    // 사용자
+    void set_current_user(const QString &username);
+    QString get_current_username();
+
 private:
     // 개발 시 디비 파일 패스
-    const QString schedular_json_path = "schedules.json";
+    QString schedular_json_path = "";
     QList<Project> s_projects;
+
+    QString session_username;
+
+    void create_default_schedule_file();
+
 };
 
 #endif // SCHEDULE_MANAGER_H

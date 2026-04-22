@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>resources/chart-gantt.svg</file>
         <file>resources/circle-user.svg</file>
+        <file>resources/login_scheduler_image_removebg.png</file>
+        <file>resources/login_banner.png</file>
     </qresource>
 </RCC>

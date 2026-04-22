@@ -1,3 +1,12 @@
+/***********************
+ * 04/20 MON
+ * login_register.cpp
+ * Created By 강유근
+ * Version 2.0
+ * 회원가입 다이얼로그
+ * 회원가입시 기존회원, 정보 기입 누락, 이메일 형식 오류시 다이얼로그 팝업
+ * 저장되어있는 기존 Jason 데이터를 받아와 신규 회원가입자정보 누적 기입
+ ***********************/
 #ifndef LOGIN_REGISTER_H
 #define LOGIN_REGISTER_H
 
@@ -18,9 +27,9 @@ public:
     explicit login_register(QWidget *parent = nullptr);
     ~login_register();
 
-    QJsonObject getAlluserData() {return allUserData;}
-    void setAlluserData(QJsonObject obj_allUserData) {allUserData=obj_allUserData;}
-    QString change_pwHesh(const QString &password);
+    QJsonObject get_all_user_data() {return all_user_data;}
+    void set_all_user_data(QJsonObject obj_all_user_data) {all_user_data=obj_all_user_data;}
+    QString change_pw_hesh(const QString &password);
 
 private slots:
     void on_pushButton_confirm_clicked();
@@ -31,7 +40,7 @@ private slots:
 private:
     Ui::login_register *ui;
 
-    QJsonObject allUserData;
+    QJsonObject all_user_data;
     QString password;
 
 

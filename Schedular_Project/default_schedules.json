@@ -1,0 +1,73 @@
+{
+  "projects": [
+    {
+      "id": "proj_edu_2026",
+      "name": "임베디드 시스템 전문가 양성 과정 및 개인 학습",
+      "schedules": [
+        {
+          "id": "sch_edu_001",
+          "category": "공부",
+          "title": "C/C++ 프로그래밍 기초",
+          "description": "C/C++ 언어 기본 문법 및 프로그래밍 기초 학습",
+          "startDate": "2026-03-30",
+          "endDate": "2026-04-03",
+          "progress": 100
+        },
+        {
+          "id": "sch_edu_002",
+          "category": "공부",
+          "title": "C/C++ 심화 및 교과평가",
+          "description": "C/C++ 심화 과정 및 10일 교과평가1 실시",
+          "startDate": "2026-04-06",
+          "endDate": "2026-04-10",
+          "progress": 100
+        },
+        {
+          "id": "sch_edu_003",
+          "category": "공부",
+          "title": "Qt/C++ Application 개발",
+          "description": "Qt 프레임워크를 활용한 애플리케이션 개발 실습",
+          "startDate": "2026-04-13",
+          "endDate": "2026-04-22",
+          "progress": 90
+        },
+        {
+          "id": "sch_edu_004",
+          "category": "업무",
+          "title": "심화실습평가 1",
+          "description": "Qt/C++ Application 과정 심화 실습 평가",
+          "startDate": "2026-04-20",
+          "endDate": "2026-04-21",
+          "progress": 100
+        },
+        {
+          "id": "sch_edu_005",
+          "category": "공부",
+          "title": "임베디드 시스템 이해",
+          "description": "2단위 기간 시작 및 임베디드 시스템 구조 이해",
+          "startDate": "2026-04-23",
+          "endDate": "2026-04-24",
+          "progress": 0
+        },
+        {
+          "id": "sch_edu_006",
+          "category": "공부",
+          "title": "ARM 프로세서 활용",
+          "description": "ARM 프로세서 아키텍처 이해 및 활용 실습",
+          "startDate": "2026-04-27",
+          "endDate": "2026-04-28",
+          "progress": 0
+        },
+        {
+          "id": "sch_edu_007",
+          "category": "공부",
+          "title": "임베디드 리눅스 프로그래밍",
+          "description": "시스템, 쉘, 네트워크 프로그래밍 기반 학습",
+          "startDate": "2026-04-29",
+          "endDate": "2026-04-30",
+          "progress": 0
+        }
+      ]
+    }
+  ]
+}

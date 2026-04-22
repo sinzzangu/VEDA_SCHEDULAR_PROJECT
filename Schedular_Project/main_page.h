@@ -25,7 +25,7 @@ class main_page : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit main_page(QWidget *parent = nullptr);
+    explicit main_page(Schedule_Manager *mgr, QWidget *parent = nullptr);
     ~main_page();
 
 private:

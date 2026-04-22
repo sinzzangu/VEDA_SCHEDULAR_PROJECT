@@ -6,6 +6,7 @@
 #include <QFrame>
 #include <QPainter>
 #include <QJsonObject>
+#include "schedule_manager.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -21,28 +22,28 @@ Widget::Widget(QWidget *parent)
 
     QString data = file.readAll();
     file.close();
-    loadData(data);
+    load_data(data);
 }
 
 Widget::~Widget()
 {
     delete ui;
 }
-//기존 가입자 데이터 obj_allUserData public변수에 저장
-void Widget::loadData(const QString &data)
+//기존 가입자 데이터 obj_all_user_data public변수에 저장
+void Widget::load_data(const QString &data)
 {
-    QJsonDocument jsonResponse = QJsonDocument::fromJson(data.toUtf8());
-    obj_allUserData = jsonResponse.object();
+    QJsonDocument json_response = QJsonDocument::fromJson(data.toUtf8());
+    obj_all_user_data = json_response.object();
 }
 //로그인 데이터 일치여부 확인
 int Widget::login_check()
 {
-    if(obj_allUserData.contains(id))
+    if(obj_all_user_data.contains(id))
     {
-        login_register heshpw;
-        QJsonObject userData = obj_allUserData.value(id).toObject();
-        QString userData_value = userData.value("password").toString();
-        if(userData_value != heshpw.change_pwHesh(pw))
+        login_register hesh_pw;
+        QJsonObject user_data = obj_all_user_data.value(id).toObject();
+        QString user_data_value = user_data.value("password").toString();
+        if(user_data_value != hesh_pw.change_pw_hesh(pw))
         {
             // qDebug() << "비번틀림";
             return 1;
@@ -59,11 +60,11 @@ void Widget::on_pushButton_register_clicked()
 {
     login_register *register_page = new login_register(this);
     //회원가입 창에 데이터 보내기
-    register_page->setAlluserData(obj_allUserData);
+    register_page->set_all_user_data(obj_all_user_data);
 
     if (register_page->exec() == QDialog::Accepted) {
         // 회원가입 창에서 업데이트된 데이터를 다시 받아옴
-        obj_allUserData = register_page->getAlluserData();
+        obj_all_user_data = register_page->get_all_user_data();
     }
 }
 
@@ -78,13 +79,13 @@ void Widget::on_pushButton_login_clicked()
     if(check_value <= 1)
     {
         login_error *error_page = new login_error(this);
-        error_page->login_dialog_changeText(check_value); // 로그인 실패 창 텍스트 변경
+        error_page->login_dialog_change_text(check_value); // 로그인 실패 창 텍스트 변경
         error_page->exec();
     }
     else if(check_value == 2)
     {
         qDebug() << "메인창과 연동";
-        emit login_successful();
+        emit login_successful(id);
         this->close();
     }
     return;
