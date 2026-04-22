@@ -18,7 +18,7 @@ public slots:
 
 private:
     main_page *app_main_page;
-    Schedule_Manager schedule_manager;   // ★ 멤버로 소유
+    Schedule_Manager schedule_manager; // 멤버 변수로 선언
 };
 
 #endif

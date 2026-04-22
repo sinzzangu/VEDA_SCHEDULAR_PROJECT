@@ -1,3 +1,12 @@
+/***********************
+ * 04/20 MON
+ * login_page.h
+ * Created By 강유근
+ * Version 2.0
+ * 로그인 위젯
+ * 로그인시 저장된 Jason 읽어 기존 사용자 판별
+ * 로그인 성공시 메인페이지에 시그널 전달
+ ***********************/
 #ifndef LOGIN_PAGE_H
 #define LOGIN_PAGE_H
 
@@ -24,7 +33,6 @@ private slots:
     void on_pushButton_register_clicked();
 
     void on_pushButton_login_clicked();
-    QJsonObject get_obj_allUserData() {return obj_allUserData;}
 
 
 signals:
@@ -33,12 +41,12 @@ signals:
 
 private:
     Ui::Widget *ui;
-    QJsonObject obj_allUserData;
+    QJsonObject obj_all_user_data;
 
     QString id;
     QString pw;
 
-    void loadData(const QString &data);
+    void load_data(const QString &data);
     int login_check();
 };
 
