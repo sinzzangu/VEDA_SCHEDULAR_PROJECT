@@ -37,7 +37,8 @@ void login_register::save_user_account()
 {
     password = ui->lineEdit_pw->text();
     // Json 파일저장
-    QFile file("user_data.json");
+    QString file_path = QCoreApplication::applicationDirPath() + "/user_data.json";
+    QFile file(file_path);
     if (!file.open(QIODevice::WriteOnly))
     {
         qDebug() << "에러";

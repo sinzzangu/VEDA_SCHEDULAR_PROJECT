@@ -9,11 +9,12 @@
 #ifndef SCHEDULE_MANAGER_H
 #define SCHEDULE_MANAGER_H
 
-#include <QObject>
-#include <QList>
-#include <QString>
 #include "project.h"
 #include "schedule.h"
+#include <QCoreApplication>
+#include <QList>
+#include <QObject>
+#include <QString>
 
 class Schedule_Manager : public QObject
 {

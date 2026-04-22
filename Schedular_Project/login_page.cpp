@@ -13,7 +13,8 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-    QFile file("user_data.json");
+    QString file_path = QCoreApplication::applicationDirPath() + "/user_data.json";
+    QFile file(file_path);
     if(!file.open(QIODevice::ReadOnly))
     {
         qDebug()<<"user_data.json 열기 실패";

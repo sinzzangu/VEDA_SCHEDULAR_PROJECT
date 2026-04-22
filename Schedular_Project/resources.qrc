@@ -4,5 +4,6 @@
         <file>resources/circle-user.svg</file>
         <file>resources/login_scheduler_image_removebg.png</file>
         <file>resources/login_banner.png</file>
+        <file>resources/default_schedules.json</file>
     </qresource>
 </RCC>

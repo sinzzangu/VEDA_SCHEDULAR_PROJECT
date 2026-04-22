@@ -260,7 +260,9 @@ void Schedule_Manager::set_current_user(const QString &username)
     session_username = username;
     qDebug() << "[set_current_user] 호출됨 - username:" << username;
     // schedule_user.json path 만들기. 유저마다.
-    schedular_json_path = QString("schedules_%1.json").arg(username);
+    schedular_json_path
+        = QCoreApplication::applicationDirPath() + QString("/schedules_%1.json").arg(username);
+    s_projects.clear();
     s_projects.clear();
 
     QFile file(schedular_json_path);
@@ -277,7 +279,7 @@ void Schedule_Manager::set_current_user(const QString &username)
 // 기본 스케줄 파일을 템플릿에서 복사해서 생성
 void Schedule_Manager::create_default_schedule_file()
 {
-    QFile default_file("default_schedules.json");
+    QFile default_file(":/resources/default_schedules.json");
 
     if (!default_file.open(QIODevice::ReadOnly))
     {
